@@ -25,6 +25,5 @@ jobs:
         with:
           title: Build Failed
           token: ${{secrets.TOKEN_USER1}}
-          assignees: ${{github.actor}}
           labels: worflow-failed
           body: Workflow failed for commit ${{github.sha}}
