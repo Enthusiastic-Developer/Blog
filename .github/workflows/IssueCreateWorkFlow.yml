@@ -1,4 +1,4 @@
-name: GitGuardian scan
+name: Issue Create Work Flow
 
 on: [push, pull_request]
 
