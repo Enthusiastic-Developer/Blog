@@ -1,13 +1,22 @@
-# This is a basic workflow to help you get started with Actions
+name: GitGuardian scan
 
-name: IssueCreate
+on: [push, pull_request]
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the development branch
-  push:
-    branches: [ development ]
-  pull_request:
-    branches: [ development ]
-
-  
+jobs:
+  scanning:
+    name: GitGuardian scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 0 # fetch all history so multiple commits can be scanned
+          
+    - name: Create Issue Action      
+      uses: nashmaniac/create-issue-action@v1.1
+      if: ${{ failure() }}
+      with:
+            title: Build Failed
+            token: ${{secrets.GITHUB_TOKEN}}
+            labels: worflow-failed
+            body: Workflow failed for commit ${{github.sha}}
