@@ -1,10 +1,19 @@
 name: Issue Create Work Flow
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ development ]
+  workflow_run:
+    workflows: [ IssueCreateWorkFlow, codeql, gitguardian ]
+    branches: [ development ]
+    types: [ completed ]
 
 jobs:
   scanning:
-    name: GitGuardian scan
+    name: Issue Create Job
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -12,6 +21,14 @@ jobs:
       with:
           fetch-depth: 0 # fetch all history so multiple commits can be scanned
           
+    - name: Workflow Run Wait
+      uses: ahmadnassri/action-workflow-run-wait@v1.4.2
+      with:
+          github-token: ${{ github.token }}
+          timeout: 50000
+          delay: 5000
+          sha: ${{ github.sha }}
+      
     - name: Create Issue Action      
       uses: nashmaniac/create-issue-action@v1.1
       if: ${{ failure() }}
