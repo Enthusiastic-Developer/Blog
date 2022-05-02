@@ -45,7 +45,7 @@ namespace BlogLab.Repository.Repository
             {
                 await connection.OpenAsync();
 
-                using (var multi = await connection.QueryMultipleAsync("Blog_All", new
+                using (var multi = await connection.QueryMultipleAsync("Blog_GetAll", new
                 {
                     Offset = (blogPaging.Page - 1) * blogPaging.PageSize,
                     PageSize = blogPaging.PageSize,
