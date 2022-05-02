@@ -59,7 +59,7 @@ namespace BlogLab.Web.Controllers
         }
 
         [HttpGet("{photoId}")]
-        public async Task<ActionResult<Photo>> Get (int photoId)
+        public async Task<ActionResult<Photo>> Get(int photoId)
         {
             var photo = await _photoRepository.GetAsync(photoId);
 
@@ -96,7 +96,7 @@ namespace BlogLab.Web.Controllers
                 {
                     return BadRequest("Photo was not uploaded by user");
                 }
-                
+
             }
             return BadRequest("Photo does not exist.");
         }

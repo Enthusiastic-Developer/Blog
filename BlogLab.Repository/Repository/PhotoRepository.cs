@@ -2,12 +2,10 @@
 using BlogLab.Repository.IRepository;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlogLab.Repository.Repository
@@ -64,7 +62,7 @@ namespace BlogLab.Repository.Repository
 
                 photo = await connection.QueryFirstOrDefaultAsync<Photo>("Photo_Get", new
                 {
-                    PhotoId = photoid 
+                    PhotoId = photoid
                 },
                 commandType: CommandType.StoredProcedure);
             }
@@ -78,7 +76,7 @@ namespace BlogLab.Repository.Repository
             dataTable.Columns.Add("PublicId", typeof(string));
             dataTable.Columns.Add("ImageUrl", typeof(string));
             dataTable.Columns.Add("Description", typeof(string));
-            
+
             dataTable.Rows.Add(photoCreate.PublicId, photoCreate.ImageUrl, photoCreate.Description);
 
             int newPhotoId;

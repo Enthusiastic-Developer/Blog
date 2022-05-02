@@ -1,6 +1,5 @@
 ﻿using BlogLab.Models.Account;
 using BlogLab.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -16,8 +15,8 @@ namespace BlogLab.Web.Controllers
         private readonly SignInManager<ApplicationUserIdentity> _signInManager;
 
         public AccountController(
-            ITokenService tokenService, 
-            UserManager<ApplicationUserIdentity> userManager, 
+            ITokenService tokenService,
+            UserManager<ApplicationUserIdentity> userManager,
             SignInManager<ApplicationUserIdentity> signInManager)
         {
             _tokenService = tokenService;

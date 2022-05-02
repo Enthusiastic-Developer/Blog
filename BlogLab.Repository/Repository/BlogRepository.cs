@@ -2,12 +2,10 @@
 using BlogLab.Repository.IRepository;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlogLab.Repository.Repository
@@ -84,7 +82,7 @@ namespace BlogLab.Repository.Repository
             {
                 await connection.OpenAsync();
 
-                famousBlogs = await connection.QueryAsync<Blog>("Blog_GetAllFamous", 
+                famousBlogs = await connection.QueryAsync<Blog>("Blog_GetAllFamous",
                     new { },
                     commandType: CommandType.StoredProcedure);
             }

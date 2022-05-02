@@ -2,15 +2,12 @@
 using BlogLab.Repository;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace BlogLab.Identity
 {
-    public class UserStore : IUserStore<ApplicationUserIdentity>,IUserEmailStore<ApplicationUserIdentity>,IUserPasswordStore<ApplicationUserIdentity>
+    public class UserStore : IUserStore<ApplicationUserIdentity>, IUserEmailStore<ApplicationUserIdentity>, IUserPasswordStore<ApplicationUserIdentity>
     {
         private readonly IAccountRepository _accountRepository;
 
@@ -21,7 +18,7 @@ namespace BlogLab.Identity
 
         public async Task<IdentityResult> CreateAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
         {
-            return await _accountRepository.CreateAsync(user,cancellationToken);
+            return await _accountRepository.CreateAsync(user, cancellationToken);
         }
         public async Task<ApplicationUserIdentity> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
@@ -94,7 +91,7 @@ namespace BlogLab.Identity
         {
             throw new NotImplementedException();
         }
-        
+
         public Task<IdentityResult> DeleteAsync(ApplicationUserIdentity user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
