@@ -7,8 +7,10 @@ import {
 } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from "ngx-toastr";
+import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppComponent } from './app.component';
 import { SummaryPipe } from './pipes/summary.pipe';
@@ -60,6 +62,8 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
+    CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   providers: [
     HttpClient,

@@ -33,6 +33,7 @@
               "./node_modules/tailwindcss/base.css",
               "./node_modules/tailwindcss/components.css",
               "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
