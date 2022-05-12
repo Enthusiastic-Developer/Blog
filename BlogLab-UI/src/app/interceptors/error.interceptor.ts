@@ -33,15 +33,16 @@ export class ErrorInterceptor implements HttpInterceptor {
               this.handle401Error(error);
               break;
             case 403:
+              this.handle403Error(error)
               break;
             case 404:
-              this.toastr.error(error.error.message, 'Not Found');
+              this.handle404Error(error);
               break;
             case 500:
-              this.toastr.error(error.error.message, 'Server Error');
+              this.handle500Error(error);
               break;
             default:
-              this.toastr.error(error.error.message, 'Unknown Error');
+              this.handleUnexpectedError(error);
               break;
           }
         }
