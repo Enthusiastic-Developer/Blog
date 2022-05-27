@@ -17,7 +17,8 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v1
         with:
-          path: ~/BlogLab-UI
+          run: cd Blog/BlogLab-UI
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
