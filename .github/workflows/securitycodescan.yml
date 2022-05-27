@@ -10,7 +10,7 @@ name: SecurityCodeScan
 
 on:
   schedule:
-    - cron: '0 12 */2 * *'
+    - cron: '0 12 */30 * *'
 
 jobs:
   SCS:
