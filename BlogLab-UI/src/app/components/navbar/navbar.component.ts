@@ -10,6 +10,7 @@ import { AccountService } from 'src/app/services/account.service';
 export class NavbarComponent implements OnInit {
 
   isCollapsed = true;
+
   constructor(
     public accountService: AccountService,
     private router: Router
@@ -22,4 +23,5 @@ export class NavbarComponent implements OnInit {
     this.accountService.logout();
     this.router.navigate(['/']);
   }
+
 }

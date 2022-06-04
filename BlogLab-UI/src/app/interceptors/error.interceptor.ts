@@ -3,50 +3,44 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
+  HttpInterceptor
 } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../services/account.service';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+
   constructor(
     private toastr: ToastrService,
-    private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private accountService: AccountService
   ) {}
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      catchError((error) => {
+      catchError(error => {
         if (error) {
-          switch (error.status) {
+          switch(error.status) {
             case 400:
               this.handle400Error(error);
-              break;
+            break;
             case 401:
               this.handle401Error(error);
-              break;
-            case 403:
-              this.handle403Error(error)
-              break;
-            case 404:
-              this.handle404Error(error);
-              break;
+            break;
             case 500:
               this.handle500Error(error);
-              break;
+            break;
             default:
               this.handleUnexpectedError(error);
-              break;
+              break; 
           }
         }
-        return throwError(() => new Error(error));
+
+        return throwError(error);
       })
     );
   }
@@ -57,28 +51,24 @@ export class ErrorInterceptor implements HttpInterceptor {
       for (const key in error.error) {
         if (!!error.error[key]) {
           const errorElement = error.error[key];
-          errorMessage = `${errorMessage}${errorElement.code} - ${errorElement.description}\n`;
+          errorMessage = (`${errorMessage}${errorElement.code} - ${errorElement.description}\n`);
         }
       }
       this.toastr.error(errorMessage, error.statusText);
       console.log(error.error);
-    } else if (
-      !!error?.error?.errors?.Content &&
-      typeof error.error.errors.Content === 'object'
-    ) {
+    } else if (!!error?.error?.errors?.Content && (typeof error.error.errors.Content) === 'object') {
       let errorObject = error.error.errors.Content;
       let errorMessage = '';
       for (const key in errorObject) {
         const errorElement = errorObject[key];
-        errorMessage = `${errorMessage}${errorElement}\n`;
+        errorMessage = (`${errorMessage}${errorElement}\n`);
       }
       this.toastr.error(errorMessage, error.statusCode);
       console.log(error.error);
     } else if (!!error.error) {
-      let errorMessage =
-        typeof error.error === 'string'
-          ? error.error
-          : 'There was a validation error.';
+      let errorMessage = ((typeof error.error) === 'string')
+        ? error.error
+        : 'There was a validation error.';
       this.toastr.error(errorMessage, error.statusCode);
       console.log(error.error);
     } else {
@@ -86,26 +76,21 @@ export class ErrorInterceptor implements HttpInterceptor {
       console.log(error);
     }
   }
+
   handle401Error(error: any) {
     let errorMessage = 'Please login to your account.';
     this.accountService.logout();
-    this.toastr.error(errorMessage, error.statusCode);
+    this.toastr.error(errorMessage, error.statusText);
     this.router.navigate(['/login']);
   }
-  handle403Error(error: any) {
-    let errorMessage = 'You are not authorized to access this page.';
-    this.toastr.error(errorMessage, error.statusCode);
-  }
-  handle404Error(error: any) {
-    let errorMessage = 'The requested resource was not found.';
-    this.toastr.error(errorMessage, error.statusCode);
-  }
+
   handle500Error(error: any) {
-    let errorMessage = 'There was a server error.';
-    this.toastr.error(errorMessage, error.statusCode);
+    this.toastr.error('Please contact the administrator. An error happened in the server.');
+    console.log(error);
   }
+
   handleUnexpectedError(error: any) {
-    let errorMessage = 'An unexpected error occurred.';
-    this.toastr.error(errorMessage, error.statusCode);
+    this.toastr.error('Something unexpected happened.');
+    console.log(error);
   }
 }
