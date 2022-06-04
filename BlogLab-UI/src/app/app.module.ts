@@ -1,18 +1,21 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import {
   HttpClient,
   HttpClientModule,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
+import { ToastrModule } from 'ngx-toastr';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SummaryPipe } from './pipes/summary.pipe';
 import { BlogComponent } from './components/blog-components/blog/blog.component';
 import { BlogCardComponent } from './components/blog-components/blog-card/blog-card.component';
@@ -62,8 +65,11 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
-    CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    CarouselModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   providers: [
     HttpClient,
